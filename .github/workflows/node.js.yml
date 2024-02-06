@@ -1,7 +1,7 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: Node.js CI
+name: CICD
 
 on:
   push:
@@ -10,20 +10,19 @@ permissions:
   id-token: write   # This is required for requesting the JWT
   contents: read    # This is required for actions/checkout
 jobs:
-  S3PackageUpload:
+ S3PackageUpload:
     runs-on: ubuntu-latest
-    
     container:
       image: amazon/aws-cli
     steps:
-    - name: Checkout the source code
-      uses: actions/checkout@v4
-      
-    - name: Configure AWS credentials from Test account
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        role-to-assume: ${{vars.AWS_ARN}}
-        aws-region: ${{vars.AWS_REGION}}
-    - name:  list s3
-      run: aws s3 ls
-    
+      - name: Git clone the repository
+        uses: actions/checkout@v4
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{vars.AWS_ARN}}
+          aws-region: ${{vars.AWS_REGION}}
+      # Upload a file to AWS s3
+      - name:  List S3
+        run: |
+          aws s3 ls
