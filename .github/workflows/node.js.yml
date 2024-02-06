@@ -12,6 +12,8 @@ permissions:
 jobs:
  S3PackageUpload:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ (github.ref == 'refs/heads/main') && 'production' || 'develop' }}
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v3
