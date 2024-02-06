@@ -15,6 +15,7 @@ jobs:
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v3
+      - name: Environment
         run: |
          echo " ARN: ${{ vars.AWS_ARN }}"
          echo " region: ${{ vars.AWS_REGION }}"
