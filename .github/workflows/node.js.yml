@@ -11,6 +11,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    container:
+      image: amazon/aws-cli
     steps:
     - name: clone souce
       uses: actions/checkout@v3
